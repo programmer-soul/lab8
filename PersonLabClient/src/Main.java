@@ -15,6 +15,7 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
+import javax.swing.Timer;
 /**
  * Программа PersonLab Client
  * @author Matvei Baranov
@@ -34,7 +35,7 @@ public class Main {
     public static JLabel messageLabel;
     public static JTextField username;
     public static JTable personTable;
-    public static JPasswordField userPassword;
+    public static JPasswordField userpassword;
     public static JTextField personName;
     public static JTextField personHeight;
     public static JTextField personWeight;
@@ -121,6 +122,7 @@ public class Main {
     public static String StrMaxId="Максимальным id";
     public static String StrAverageWeight="Средний вес";
     public static String StrSumOfHeight="Сумма роста всех людей";
+
     public static boolean login(String username,String password){
         if (Objects.equals(username, prevUsername) && Objects.equals(password, prevPassword)){
             showMessageFrame(StrError,commands.getMessage());
@@ -217,6 +219,7 @@ public class Main {
     }
     public static void visualPerson(){
         visualFrame.setVisible(true);
+        //visualFrame.
         visualFrame.repaint();
     }
     public static void addPerson(){
@@ -464,29 +467,29 @@ public class Main {
         JPanel buttons = new JPanel();
         editButton = new JButton("Редактировать");
         editButton.addActionListener(new ActionListener(){
-                                           public void actionPerformed(ActionEvent e){
-                                               SwingUtilities.invokeLater(new Runnable()
-                                               {
-                                                   public void run()
-                                                   {
-                                                       updatePerson();
-                                                   }
-                                               });
-                                           }
-                                       }
-        );
-        addButton = new JButton("Добавить");
-        addButton.addActionListener(new ActionListener(){
                                          public void actionPerformed(ActionEvent e){
                                              SwingUtilities.invokeLater(new Runnable()
                                              {
                                                  public void run()
                                                  {
-                                                     addPerson();
+                                                     updatePerson();
                                                  }
                                              });
                                          }
                                      }
+        );
+        addButton = new JButton("Добавить");
+        addButton.addActionListener(new ActionListener(){
+                                        public void actionPerformed(ActionEvent e){
+                                            SwingUtilities.invokeLater(new Runnable()
+                                            {
+                                                public void run()
+                                                {
+                                                    addPerson();
+                                                }
+                                            });
+                                        }
+                                    }
         );
         removeButton = new JButton("Удалить");
         removeButton.addActionListener(new ActionListener(){
@@ -556,35 +559,35 @@ public class Main {
         );
         menu1Item3 = new JMenuItem("Фильтр");
         menu1Item3.addActionListener(new ActionListener(){
-                                          public void actionPerformed(ActionEvent e){
-                                              SwingUtilities.invokeLater(new Runnable()
-                                              {
-                                                  public void run()
-                                                  {
-                                                      int row=personTable.getSelectedRow();
-                                                      int col=personTable.getSelectedColumn();
-                                                      if (row>=0 && col>=0){
-                                                          personModel.filter(row,col);
-                                                          personModel.fireTableDataChanged();
-                                                      }
+                                         public void actionPerformed(ActionEvent e){
+                                             SwingUtilities.invokeLater(new Runnable()
+                                             {
+                                                 public void run()
+                                                 {
+                                                     int row=personTable.getSelectedRow();
+                                                     int col=personTable.getSelectedColumn();
+                                                     if (row>=0 && col>=0){
+                                                         personModel.filter(row,col);
+                                                         personModel.fireTableDataChanged();
+                                                     }
 
-                                                  }
-                                              });
-                                          }
-                                      }
+                                                 }
+                                             });
+                                         }
+                                     }
         );
         menu1Item4 = new JMenuItem("Отключить Фильтр");
         menu1Item4.addActionListener(new ActionListener(){
-                                          public void actionPerformed(ActionEvent e){
-                                              SwingUtilities.invokeLater(new Runnable()
-                                              {
-                                                  public void run()
-                                                  {
-                                                      personModel.disableFilter();
-                                                  }
-                                              });
-                                          }
-                                      }
+                                         public void actionPerformed(ActionEvent e){
+                                             SwingUtilities.invokeLater(new Runnable()
+                                             {
+                                                 public void run()
+                                                 {
+                                                     personModel.disableFilter();
+                                                 }
+                                             });
+                                         }
+                                     }
         );
 
 
@@ -939,16 +942,16 @@ public class Main {
         JButton submitButton = new JButton("OK");
         submitButton.setPreferredSize(new Dimension(100, 30));
         submitButton.addActionListener(new ActionListener(){
-                                          public void actionPerformed(ActionEvent e){
-                                              SwingUtilities.invokeLater(new Runnable()
-                                              {
-                                                  public void run()
-                                                  {
-                                                      submitPerson();
-                                                  }
-                                              });
-                                          }
-                                      }
+                                           public void actionPerformed(ActionEvent e){
+                                               SwingUtilities.invokeLater(new Runnable()
+                                               {
+                                                   public void run()
+                                                   {
+                                                       submitPerson();
+                                                   }
+                                               });
+                                           }
+                                       }
         );
         submitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         personFrame.add(submitButton);
@@ -988,16 +991,16 @@ public class Main {
         visualFrame.add(canvas);
         visualFrame.setVisible(false);
         canvas.addMouseListener(new MouseInputAdapter(){
-                                           public void mousePressed(MouseEvent e){
-                                               SwingUtilities.invokeLater(new Runnable()
-                                               {
-                                                   public void run()
-                                                   {
-                                                       updatePersonFromVisualArea(canvas.getPersonIDByPoint(e.getX(),e.getY()));
-                                                   }
-                                               });
-                                           }
-                                       }
+                                    public void mousePressed(MouseEvent e){
+                                        SwingUtilities.invokeLater(new Runnable()
+                                        {
+                                            public void run()
+                                            {
+                                                updatePersonFromVisualArea(canvas.getPersonIDByPoint(e.getX(),e.getY()));
+                                            }
+                                        });
+                                    }
+                                }
         );
 
         loginFrame = new JFrame("PersonLab. Введите имя пользователя и пароль.");
@@ -1011,47 +1014,47 @@ public class Main {
         loginFrame.add(usernameLabel);
 
         username= new JTextField(30);
-        //username.setText("testuser");
+        username.setText("testuser");
         loginFrame.add(username);
 
         passwordLabel = new JLabel("Пароль");
         passwordLabel.setPreferredSize(new Dimension(60, 30));
         loginFrame.add(passwordLabel);
 
-        userPassword= new JPasswordField(30);
-        //userPassword.setText("test");
-        loginFrame.add(userPassword);
+        userpassword= new JPasswordField(30);
+        userpassword.setText("test");
+        loginFrame.add(userpassword);
 
         loginButton = new JButton(StrLogin);
         loginButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                SwingUtilities.invokeLater(new Runnable()
-                {
-                    public void run()
-                    {
-                        String passtext=new String(userPassword.getPassword());
-                        if (username.getText().isEmpty()){
-                            username.requestFocusInWindow();
-                        }
-                        else if(passtext.isEmpty()){
-                            userPassword.requestFocusInWindow();
-                        }
-                        else{
-                            if (LoginMode==1){
-                                if (login(username.getText(),passtext)){
-                                    mainFrame.setVisible(true);
-                                    loginFrame.setVisible(false);
-                                }
-                            }
-                            else{
-                                executeCommand("register "+username.getText()+" "+passtext,"",null);
-                                showMessageFrame(StrInformation,commands.getMessage());
-                            }
-                        }
-                    }
-                });
-            }
-        }
+                                          public void actionPerformed(ActionEvent ae){
+                                              SwingUtilities.invokeLater(new Runnable()
+                                              {
+                                                  public void run()
+                                                  {
+                                                      String passtext=new String(userpassword.getPassword());
+                                                      if (username.getText().isEmpty()){
+                                                          username.requestFocusInWindow();
+                                                      }
+                                                      else if(passtext.isEmpty()){
+                                                          userpassword.requestFocusInWindow();
+                                                      }
+                                                      else{
+                                                          if (LoginMode==1){
+                                                              if (login(username.getText(),passtext)){
+                                                                  mainFrame.setVisible(true);
+                                                                  loginFrame.setVisible(false);
+                                                              }
+                                                          }
+                                                          else{
+                                                              executeCommand("register "+username.getText()+" "+passtext,"",null);
+                                                              showMessageFrame(StrInformation,commands.getMessage());
+                                                          }
+                                                      }
+                                                  }
+                                              });
+                                          }
+                                      }
         );
         loginFrame.add(loginButton);
         loginFrame.setVisible(true);
@@ -1063,9 +1066,24 @@ public class Main {
                 commands.SetTableParams(personModel,visualFrame,canvas);
                 UDPDatagramServer server = new UDPDatagramServer(InetAddress.getLocalHost(), 30200, commands, logger);
                 server.run();
+                Timer timer = new Timer(100,
+                        new ActionListener(){
+                            public void actionPerformed(ActionEvent e){
+                                SwingUtilities.invokeLater(new Runnable()
+                                {
+                                    public void run()
+                                    {
+                                        if (!mainFrame.isVisible()){Thread.currentThread().interrupt();}
+                                        if (visualFrame.isVisible()){canvas.repaint();}
+                                    }
+                                });
+                            }
+                        }
+                );
+                timer.start();
             }
             catch (UnknownHostException e) {
-               logger.log(Level.SEVERE,"Ошибка создания сервера для приёма объектов", e);
+                logger.log(Level.SEVERE,"Ошибка создания сервера для приёма объектов", e);
             }
         }
         else
